@@ -32,7 +32,7 @@ class SubscriptionManager(_BaseManager):
 
     def __init__(self, rmr_xapp: RMRXapp):
         super().__init__(rmr_xapp)
-        _client = api_client()
+        _client = api_client.ApiClient()
 
     def get_gnb_list(self):
         gnblist = self._rmr_xapp.get_list_gnb_ids()   # yet to come in library
