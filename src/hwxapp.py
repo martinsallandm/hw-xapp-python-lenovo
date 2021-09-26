@@ -42,6 +42,7 @@ class HWXapp:
         Function that runs when xapp initialization is complete
         """
         rmr_xapp.logger.info("HWXapp.post_init :: post_init called (Hello from Lenovo - UFRN)")
+        print("LenoboHWXapp.post_init :: post_init called (Hello from Lenovo - UFRN)")
         # self.sdl_alarm_mgr = SdlAlarmManager()
         sdl_mgr = SdlManager(rmr_xapp)
         sdl_mgr.sdlGetGnbList()
@@ -71,6 +72,8 @@ class HWXapp:
         rmr_xapp.logger.info("HWXapp.default_handler called for msg type = " +
                                    str(summary[rmr.RMR_MS_MSG_TYPE]))
         rmr_xapp.rmr_free(sbuf)
+
+        print("LenovoHWXapp.default_handler called for msg type = " + str(summary[rmr.RMR_MS_MSG_TYPE]))
 
     def createHandlers(self):
         """
