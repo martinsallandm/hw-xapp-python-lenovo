@@ -1,6 +1,6 @@
  {
         "xapp_name": "hwxapplenovo",
-        "version": "latest",
+        "version": "1.0.0",
         "containers": [
             {
                 "name": "hw-lenovo-python",
