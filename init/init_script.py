@@ -46,13 +46,14 @@ def parseConfigJson(config):
             result = ParseSection[k1](config)
             if not result:
                 return False
-
+    return True
 
 def getMessagingInfo(config):
     global lport
     if 'messaging' in config.keys() and 'ports' in config['messaging'].keys():
         port_list = config['messaging']['ports']
         for portdesc in port_list:
+           
             if 'port' in portdesc.keys() and 'name' in portdesc.keys() and portdesc['name'] == 'rmr-data':
                 lport = portdesc['port']
                 # Set the environment variable
@@ -61,6 +62,9 @@ def getMessagingInfo(config):
     if lport == 0:
         print("Error! No valid listening port", flush=True)
         return False
+
+
+    return True    
 
 
 def getXappName(config):
@@ -72,6 +76,8 @@ def getXappName(config):
     xapp_name = config[myKey]
     print("Xapp Name is: " + xapp_name)
     os.environ["XAPP_NAME"] = xapp_name
+
+    return True
 
 
 ParseSection = dict()

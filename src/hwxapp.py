@@ -16,6 +16,8 @@
 #
 # ==================================================================================
 
+import os
+
 from os import getenv
 from ricxappframe.xapp_frame import RMRXapp, rmr
 
@@ -41,8 +43,9 @@ class HWXapp:
         """
         Function that runs when xapp initialization is complete
         """
+
         rmr_xapp.logger.info("HWXapp.post_init :: post_init called (Hello from Lenovo - UFRN)")
-        print("LenoboHWXapp.post_init :: post_init called (Hello from Lenovo - UFRN)")
+        print("LenovoHWXapp.post_init :: post_init called (Hello from Lenovo - UFRN)")
         # self.sdl_alarm_mgr = SdlAlarmManager()
         sdl_mgr = SdlManager(rmr_xapp)
         sdl_mgr.sdlGetGnbList()
@@ -57,6 +60,10 @@ class HWXapp:
             sub_mgr.send_subscription_request(gnb)
         metric_mgr = MetricManager(rmr_xapp)
         metric_mgr.send_metric()
+
+        
+        print('finished post_init()')
+
 
     def _handle_config_change(self, rmr_xapp, config):
         """
@@ -79,9 +86,17 @@ class HWXapp:
         """
         Function that creates all the handlers for RMR Messages
         """
+
+        print('createHandles - BEGIN')
+
         HealthCheckHandler(self._rmr_xapp, Constants.RIC_HEALTH_CHECK_REQ)
         A1PolicyHandler(self._rmr_xapp, Constants.A1_POLICY_REQ)
         SubscriptionHandler(self._rmr_xapp,Constants.SUBSCRIPTION_REQ)
+
+        print('createHandles - END')
+
+
+        print(os.environ.items())
 
     def start(self, thread=False):
         """

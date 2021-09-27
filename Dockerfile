@@ -12,21 +12,25 @@ ENV RMR_SEED_RT /opt/route/test_route.rt
 
 
 # Install
-COPY setup.py /tmp
-COPY README.md /tmp
-COPY LICENSE.txt /tmp/
-COPY src/ /tmp/src
-COPY init/ /tmp/init
-RUN pip3 install /tmp 
+RUN mkdir /tmp/xapp
+COPY setup.py /tmp/xapp
+COPY README.md /tmp/xapp
+COPY LICENSE.txt /tmp/xapp
+COPY src/ /tmp/xapp/src
+COPY init/ /tmp/xapp/init
+RUN pip3 install /tmp/xapp 
 
 # Env - TODO- Configmap
 ENV PYTHONUNBUFFERED 1
-ENV CONFIG_FILE=/tmp/init/config-file.json
+ENV CONFIG_FILE=/tmp/xapp/init/config-file.json
 
 # For Default DB connection, modify for resp kubernetes env
 ENV DBAAS_SERVICE_PORT=6379
 #ENV DBAAS_SERVICE_HOST=service-ricplt-dbaas-tcp.ricplt.svc.cluster.local
-ENV DBAAS_SERVICE_HOST=10.244.0.143
+ENV DBAAS_SERVICE_HOST=10.244.0.211
 
-#Run
-CMD run-hw-python.py
+
+
+CMD python3 /tmp/xapp/init/init_script.py $CONFIG_FILE
+#CMD run-hw-python.py
+#CMD env
